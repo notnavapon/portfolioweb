@@ -1,16 +1,17 @@
-import { useState } from "react";
+import { useState ,useEffect} from "react";
 import { Camera, Mail, User } from "lucide-react";
 import { userAuthStore } from "../store/userAuthStore";
 import imageCompression from "browser-image-compression";
 
 const ProfilePage = () => {
-  const { authUser, isUpdatingProfile, updateProfile } = userAuthStore();
+  const { authUser, isUpdatingProfile, updateProfile ,checkAuth} = userAuthStore();
   const [selectedImg, setSelectedImg] = useState(null);
 
+
   const [isEditing, setIsEditing] = useState(false);
+
   const [form, setForm] = useState({
-    fullName: authUser?.fullName || "",
-    email: authUser?.email || "",
+    fullName: authUser?.fullName,
   });
 
   const handleChange = (e) => {
@@ -29,7 +30,7 @@ const ProfilePage = () => {
       maxSizeMB: 1, // ย่อให้ไม่เกิน 1MB
       maxWidthOrHeight: 1024, // ความกว้าง/สูงสูงสุด
       useWebWorker: true,
-    };
+  };
 
     try {
       if (!file) return;
@@ -47,6 +48,10 @@ const ProfilePage = () => {
       console.error("Error compressing file:", error);
     }
   };
+
+    useEffect(()=>{
+      checkAuth();
+    }, [checkAuth]);
   return (
     <div className="h-screen pt-20">
       <div className="max-w-2xl mx-auto p-4 py-8">
