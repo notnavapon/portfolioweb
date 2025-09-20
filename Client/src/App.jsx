@@ -42,6 +42,7 @@ const App = () => {
   return (
     <div data-theme={theme} className="flex flex-col min-h-screen">
       <Navbar />
+      <div>
       <Routes>
         {/* <Route path="/" element={<Homepage/> }/> */}
         <Route path="/" element={<Homepage/>} />
@@ -53,6 +54,7 @@ const App = () => {
         <Route path="/settings" element={<SettingsPage/> }/>
         <Route path="/profile" element={authUser ? <ProfilePage/> : <Navigate to="/login"/>}/>
       </Routes>
+      </div>
       <Footer/>
       <Toaster />
     </div>
