@@ -6,7 +6,7 @@ import {io} from "socket.io-client";
 const BASE_URL = import.meta.env.MODE === "development" ? "http://localhost:5001" : "/";
 
 export const userAuthStore = create((set, get) => ({
-  authUser: null,
+  authUser: null, //{_id: '', fuillName: '', email: '', profilePic: ''}
   isSigningUp: false,
   isLoggingIn: false,
   isUpdateingProfile: false,

@@ -55,7 +55,7 @@ export const signup = async (req, res) => {
 
 export const login = async (req, res) => {
   const { email, password } = req.body;
-  console.log(req.body)
+  // console.log(req.body)
   try {
     const user = await User.findOne({ email });
 
@@ -72,7 +72,7 @@ export const login = async (req, res) => {
 
     res.status(200).json({
       _id: user._id,
-      fuillName: user.fullName,
+      fullName: user.fullName,
       email: user.email,
       profilePic: user.profilePic,
     });
@@ -121,32 +121,56 @@ export const updateProfile = async (req, res) => {
   try {
     const userId = req.user._id;
 
-    console.log("Uploaded file:", req.file); // เช็คว่ามีไฟล์ไหม
-
+    // เช็คว่ามีไฟล์ไหม
     if (!req.file) {
       return res.status(400).json({ message: "Profile pic is required" });
     }
 
-    // upload to Cloudinary
+    // โหลด user เดิม
+    const user = await User.findById(userId);
+    const oldUrl = user.profilePic;
+
+    // แปลง URL เป็น public_id (สำหรับลบ)
+    let oldPublicId = null;
+    if (oldUrl) {
+      const parts = oldUrl.split("/profiles/");
+      if (parts[1]) {
+        oldPublicId = "profiles/" + parts[1].replace(/\.[^/.]+$/, ""); // ลบ .jpg/.png
+        console.log(oldPublicId)
+      }
+    }
+
+    // Upload รูปใหม่
     const uploadStream = cloudinary.uploader.upload_stream(
       { folder: "profiles" },
       async (error, result) => {
         if (error) return res.status(500).json({ message: "Cloudinary error" });
 
-        const updateUser = await User.findByIdAndUpdate(
+        // ลบรูปเก่า ถ้ามี
+        if (oldPublicId) {
+          cloudinary.uploader.destroy(oldPublicId, (err, resDestroy) => {
+            if (err) console.log("Failed to delete old image:", err);
+            else console.log("Old image deleted:", resDestroy);
+          });
+        }
+
+        // อัปเดต user
+        const updatedUser = await User.findByIdAndUpdate(
           userId,
           { profilePic: result.secure_url },
           { new: true }
         );
 
-        res.status(200).json(updateUser);
+        res.status(200).json(updatedUser);
       }
     );
 
+    // สร้าง stream จาก buffer ของ Multer
     streamifier.createReadStream(req.file.buffer).pipe(uploadStream);
-  } catch (error) {
-    console.error(error);
-    res.status(500).json({ message: "Internal Server Error" });
+
+  } catch (err) {
+    console.error("Error in updateProfilePic:", err);
+    res.status(500).json({ message: "Internal server error" });
   }
 };
 

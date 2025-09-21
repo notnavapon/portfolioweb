@@ -23,11 +23,7 @@ const Homepage = () => {
         <div>
           <h1 className="text-4xl font-extrabold">Navapon Nanakorn</h1>
           <p className="mt-3  max-w-xl mx-auto">
-            Software Engineering graduate passionate about software development
-            and sales. Experienced in analyzing product performance, gathering
-            customer feedback, and identifying business opportunities. Eager to
-            grow as a software developer while contributing to innovative and
-            impactful solutions in fast-paced, collaborative environments.
+            Software Engineering graduate with experience in software QA and project management. Skilled in analyzing sales, product, and software data, gathering customer requirements and feedback, and identifying business opportunities. Knowledgeable in SDLC and experienced in Agile and Scrum methodologies. Passionate about developing software, creating innovative solutions in collaborative environments, and continuously learning and growing.
           </p>
         </div>
       </section>
@@ -48,8 +44,8 @@ const Homepage = () => {
               <h3 className="text-lg font-bold">
                 Project Mananger - Charoen Pokphand Foods Public Company Limited
               </h3>
+              <span className="text-sm ">Jan 2024 - June 2025 (1 year 6 months)</span>
               <div className="divider"></div>
-              <span className="text-sm ">Jan 2024 - June 2025</span>
               <div className="mt-2">
                 <p>
                   I would like to highlight my role as a Project Manager and QA
@@ -78,7 +74,7 @@ const Homepage = () => {
               </div>
 
               <br />
-              <h3 className="font-medium">Job description</h3>
+              <h3 className="font-medium">Job Responsibilities</h3>
               <br />
               <div className="flex w-full flex-col lg:flex-row gap-4">
                 {/* Left */}
@@ -152,7 +148,7 @@ const Homepage = () => {
               <h3 className="text-lg font-bold">
                 Quality Assurance Engineer - Ngernturbo Co. Ltd.
               </h3>
-              <span className="text-sm ">Aug 2023 - Nov 2023</span>
+              <span className="text-sm ">Aug 2023 - Nov 2023 (4 months)</span>
               <div className="divider"></div>
               <p className="mt-2 ">
                 My duties as an Agile worker include reviewing and managing
@@ -160,7 +156,7 @@ const Homepage = () => {
                 product for use.
               </p>
               <br />
-              <h3 className="font-medium">Job description</h3>
+              <h3 className="font-medium">Job Responsibilities</h3>
               <p className="mt-2 ">
                 • developed test cases based on business requirements within
                 Agile sprints. <br />
@@ -184,7 +180,7 @@ const Homepage = () => {
               <h3 className="text-lg font-bold">
                 Quality Assurance Engineer Internship - N squared ecommerce
               </h3>
-              <span className="text-sm "> Jan 2023 - Nov 2023</span>
+              <span className="text-sm "> Jan 2023 - June 2023 (6 months)</span>
               <div className="divider"></div>
               <p className="mt-2 ">
                 Working in an agile format to facilitate easier collaboration
@@ -192,7 +188,7 @@ const Homepage = () => {
                 open discussions and collaborative suggestions.
               </p>
               <br />
-              <h3 className="font-medium">Job description</h3>
+              <h3 className="font-medium">Job Responsibilities</h3>
               <p className="mt-2 ">
                 • developed test cases based on business requirements within
                 Agile sprints. <br />
