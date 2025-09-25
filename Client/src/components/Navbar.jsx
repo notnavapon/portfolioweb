@@ -93,12 +93,18 @@ const Navbar = () => {
             )}
 
             {!authUser && (
+              <>
+                <Link to={"/blog"} className="btn btn-sm gap-2 rounded-md shadow-lg">
+                  <Newspaper className="size-5" />
+                  <span className="hidden sm:inline">Blog</span>
+                </Link>
               <Link to="/login">
                 <button className="btn btn-sm gap-2 bg-orange-500 hover:bg-orange-600 text-white rounded-md shadow-lg">
                   <LogIn className="w-5 h-5" />
                   <span className="hidden sm:inline">Login</span>
                 </button>
               </Link>
+              </>
             )}
           </div>
         </div>

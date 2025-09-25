@@ -1,12 +1,12 @@
-import { useState ,useEffect} from "react";
+import { useState, useEffect } from "react";
 import { Camera, Mail, User } from "lucide-react";
 import { userAuthStore } from "../store/userAuthStore";
 import imageCompression from "browser-image-compression";
 
 const ProfilePage = () => {
-  const { authUser, isUpdatingProfile, updateProfile ,checkAuth} = userAuthStore();
+  const { authUser, isUpdatingProfile, updateProfile, checkAuth } =
+    userAuthStore();
   const [selectedImg, setSelectedImg] = useState(null);
-
 
   const [isEditing, setIsEditing] = useState(false);
 
@@ -30,7 +30,7 @@ const ProfilePage = () => {
       maxSizeMB: 1, // ย่อให้ไม่เกิน 1MB
       maxWidthOrHeight: 1024, // ความกว้าง/สูงสูงสุด
       useWebWorker: true,
-  };
+    };
 
     try {
       if (!file) return;
@@ -49,9 +49,9 @@ const ProfilePage = () => {
     }
   };
 
-    useEffect(()=>{
-      checkAuth();
-    }, [checkAuth]);
+  useEffect(() => {
+    checkAuth();
+  }, [checkAuth]);
   return (
     <div className="flex-1 pt-20">
       <div className="max-w-2xl mx-auto p-4 py-8">
@@ -104,37 +104,40 @@ const ProfilePage = () => {
 
           <div className="relative p-6 bg-base-100 rounded-xl shadow-md space-y-6">
             {/* Action Buttons */}
-            <div className="absolute top-4 right-4 flex gap-2">
-              {isEditing ? (
-                <>
-                  <button
-                    onClick={handleSave}
-                    className="px-3 py-1.5 bg-green-500 text-white rounded-lg text-sm"
-                  >
-                    Save
-                  </button>
-                  <button
-                    onClick={() => setIsEditing(false)}
-                    className="px-3 py-1.5 bg-gray-400 text-white rounded-lg text-sm"
-                  >
-                    Cancel
-                  </button>
-                </>
-              ) : (
-                <button
-                  onClick={() => setIsEditing(true)}
-                  className="px-3 py-1.5 bg-blue-500 text-white rounded-lg text-sm"
-                >
-                  Edit
-                </button>
-              )}
-            </div>
+            <div className="absolute top-4 right-4 flex gap-2"></div>
 
             {/* Full Name */}
             <div className="space-y-1.5">
-              <div className="text-sm text-zinc-400 flex items-center gap-2">
-                <User className="w-4 h-4" />
-                Full Name
+              <div className="text-sm text-zinc-400 flex items-center justify-between">
+                <div className="flex items-center gap-2">
+                  <User className="w-4 h-4" />
+                  Full Name
+                </div>
+
+                {isEditing ? (
+                  <div className="flex gap-2">
+                    <button
+                      onClick={handleSave}
+                      className="px-2 py-0.5 text-xs rounded-md bg-green-500 text-white disabled:opacity-50 disabled:cursor-not-allowed"
+                    >
+                      Save
+                    </button>
+                    <button
+                      onClick={() => setIsEditing(false)}
+                      className="px-2 py-0.5 text-xs rounded-md bg-red-500 text-white disabled:opacity-50 disabled:cursor-not-allowed"
+                    >
+                      Cancel
+                    </button>
+                  </div>
+                ) : (
+                  <button
+                    onClick={() => setIsEditing(true)}
+                    className="px-2 py-0.5 text-xs rounded-md bg-blue-500 text-white disabled:opacity-50 disabled:cursor-not-allowed"
+                    disabled
+                  >
+                    Edit
+                  </button>
+                )}
               </div>
 
               {isEditing ? (
@@ -158,9 +161,9 @@ const ProfilePage = () => {
                 <Mail className="w-4 h-4" />
                 Email Address
               </div>
-                <p className="px-4 py-2.5 bg-base-200 rounded-lg border">
-                  {authUser?.email}
-                </p>
+              <p className="px-4 py-2.5 bg-base-200 rounded-lg border">
+                {authUser?.email}
+              </p>
             </div>
           </div>
           <div className="mt-6 bg-base-300 rounded-xl p-6">

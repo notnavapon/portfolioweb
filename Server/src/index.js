@@ -11,6 +11,7 @@ import { connectDB } from "./config/db.js";
 import authRoutes from "./routes/authRoute.js";
 import messageRoutes from "./routes/messageRoute.js";
 import roleRoutes from "./routes/roleRoute.js";
+import blogRoutes from "./routes/blogRoute.js";
 
 import {app,server} from "./config/socket.js";
 
@@ -33,6 +34,7 @@ app.use(cors(
 app.use("/api/auth" , authRoutes);
 app.use("/api/messages" , messageRoutes);
 app.use("/api/role", roleRoutes)
+app.use("/api/blog", blogRoutes)
 
 
 

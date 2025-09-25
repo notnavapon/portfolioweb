@@ -1,5 +1,5 @@
 import express from "express";
-import { login,logout,signup, updateProfile, checkAuth } from "../controllers/authController.js";
+import { login,logout,signup, updateProfile, checkAuth, getUserPic } from "../controllers/authController.js";
 import { protectRoute, uploadCompressionRoute} from "../middleware/authMidleware.js";
 
 
@@ -14,4 +14,5 @@ router.put("/update-profile", protectRoute ,uploadCompressionRoute.single("profi
 
 
 router.get("/check", protectRoute, checkAuth);
+router.get("/getuserpic", getUserPic);
 export default router;

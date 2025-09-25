@@ -6,7 +6,7 @@ import {io} from "socket.io-client";
 const BASE_URL = import.meta.env.MODE === "development" ? "http://localhost:5001" : "/";
 
 export const userAuthStore = create((set, get) => ({
-  authUser: null, //{_id: '', fuillName: '', email: '', profilePic: ''}
+  authUser: null, //{_id: '', fullName: '', email: '', profilePic: ''}
   isSigningUp: false,
   isLoggingIn: false,
   isUpdateingProfile: false,
@@ -14,6 +14,18 @@ export const userAuthStore = create((set, get) => ({
   isCheckingAuth: true,
   onlineUsers: [],
   socket:null,
+  
+  blogProfilePic: "",
+
+  checkUserPic: async(data)=>{
+    try {
+      const res = await axiosInstance.get("/auth/getUserPic" ,{ params: { email: data.email } });
+      console.log("checkUserPic success", res.data)
+      return res.data;
+    } catch (error) {
+      console.log("Error in checkUserPic", error);
+    }
+  },
 
   checkAuth: async () => {
     try {

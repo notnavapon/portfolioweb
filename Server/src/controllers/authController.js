@@ -184,3 +184,21 @@ export const checkAuth = (req,res) =>{
     res.status(500).json({message: "internal Server Error"});
   }
 }
+
+
+export const getUserPic = async (req,res) =>{
+  try {
+    const { email } = req.query;
+    if (!email) return res.status(400).json({ message: "Email is required" });
+
+
+    const user = await User.findOne({ email: email });
+    if (!user) return res.status(404).json({ message: "Email not found" });
+
+    res.status(200).json(user.profilePic);
+  } catch (error) {
+    console.error("Error getting user:", error);
+    res.status(500).json({ message: "Internal server error" });
+  }
+
+}

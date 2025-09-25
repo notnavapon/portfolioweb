@@ -1,164 +1,83 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { X } from "lucide-react";
+import MDEditor from "@uiw/react-md-editor";
+import BlogCreate from "../components/Blog/BlogCreate";
+import BlogMenu from "../components/Blog/BlogMenu";
+
+import { userAuthStore } from "../store/userAuthStore";
+import { useRoleStore } from "../store/useRoleStore";
+
 
 const Blogpage = () => {
-  const [show,setShow] = useState(false);
+  const { authUser } = userAuthStore();
+  const [show, setShow] = useState(false);
+  const { role, getRole } = useRoleStore();
 
-  
+  useEffect(() => {
+    const checkRole = async () => {
+      await getRole(authUser?.email);
+    };
+
+    checkRole();
+    // console.log("role on blogpage:" + role);
+  }, [show]);
 
   return (
-    <div className="flex-1 pt-20">
-      <div className="min-h-screen flex flex-col justify-center items-center ">
-        {/* Icon */}
-        <div className="text-6xl mb-6 animate-bounce">{/* <FaTools /> */}</div>
-
-        {/* Title */}
-        <h1 className="text-5xl font-extrabold mb-4">Coming Soon</h1>
-
-        {/* Optional button */}
-        <a
-          href="/"
-          className="px-6 py-3  font-semibold rounded-full shadow-lg hover:bg-gray-100 transition"
-        >
-          Go Back
-        </a>
-        <button
-          href="/"
-          className="px-6 py-3  font-semibold rounded-full shadow-lg hover:bg-gray-100 transition"
-          onClick={() => setShow((prev) => !prev)}
-        >
-          Show Mockup
-        </button>
-
-        {/* Decorative shapes */}
-        <div className="absolute top-0 left-0 w-32 h-32 bg-white opacity-10 rounded-full -translate-x-16 -translate-y-16"></div>
-        <div className="absolute bottom-0 right-0 w-48 h-48 bg-white opacity-10 rounded-full translate-x-16 translate-y-16"></div>
-      </div>
-
-       {show && (
-      <>
-      {/* Mockup */}
-      <div className="max-w-3xl mx-auto p-6 mt-10 bg-white dark:bg-gray-800 shadow-md rounded-lg transition-colors duration-300">
-        <h1 className="text-3xl font-semibold mb-6 text-center text-gray-900 dark:text-gray-100">
-          Create Blog
-        </h1>
-        <form className="space-y-4">
-          {/* Title */}
-          <div>
-            <label className="block text-sm font-medium mb-1 text-gray-700 dark:text-gray-300">
-              Title
-            </label>
-            <input
-              type="text"
-              placeholder="Enter blog title"
-              className="w-full border border-gray-300 dark:border-gray-600 rounded-lg p-2 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-colors duration-200"
-            />
-          </div>
-
-          {/* Content */}
-          <div>
-            <label className="block text-sm font-medium mb-1 text-gray-700 dark:text-gray-300">
-              Content
-            </label>
-            <textarea
-              rows={6}
-              placeholder="Write your blog content..."
-              className="w-full border border-gray-300 dark:border-gray-600 rounded-lg p-2 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-colors duration-200"
-            />
-          </div>
-
-          {/* Image Upload */}
-          <div>
-            <label className="block text-sm font-medium mb-1 text-gray-700 dark:text-gray-300">
-              Image (optional)
-            </label>
-            <input
-              type="file"
-              accept="image/*"
-              className="block w-full text-sm text-gray-500
-                       file:mr-4 file:py-2 file:px-4
-                       file:rounded-lg file:border-0
-                       file:text-sm file:font-semibold
-                       file:bg-blue-100 dark:file:bg-blue-800
-                       file:text-blue-700 dark:file:text-blue-200
-                       hover:file:bg-blue-200 dark:hover:file:bg-blue-700
-                       transition-colors duration-200"
-            />
-          </div>
-
-          {/* Submit Button */}
-          <button
-            type="submit"
-            className="w-full bg-blue-600 dark:bg-blue-500 hover:bg-blue-700 dark:hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded-lg transition duration-200"
-          >
-            Create Blog
-          </button>
-        </form>
-      </div>
-
-      <div className="max-w-3xl mx-auto p-6 mt-10 space-y-8">
-        {/* Blog Post */}
-        <div className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md transition-colors duration-300">
-          <div className="flex justify-between items-center mb-4">
-            <h1 className="text-3xl font-bold text-gray-900 dark:text-gray-100">
-              Blog Title Example
-            </h1>
-            <button>
-              <X />
+    <div className="flex-1 pt-20 py-8">
+      <div className="max-w-4xl mx-auto pt-20 px-6">
+        <div className="flex items-center justify-between mb-8">
+          <h1 className="text-4xl font-bold">📚 My Blogs</h1>
+          {authUser && (
+            <button
+              href="/"
+              className="px-6 py-3 font-semibold rounded-full shadow-lg hover:bg-gray-100 transition"
+              onClick={() => setShow((prev) => !prev)}
+            >
+              {!show ? "Create Blog" : "Cancle"}
             </button>
-          </div>
-
-          <p className="text-gray-800 dark:text-gray-200 mb-4">
-            This is an example of blog content. Lorem ipsum dolor sit amet,
-            consectetur adipiscing elit. Pellentesque euismod, nibh sit amet
-            fringilla bibendum, purus purus laoreet nunc, eget ultrices mauris
-            velit eget arcu.
-          </p>
-
-          {/* Edit Content */}
-          <textarea
-            className="w-full border border-gray-300 dark:border-gray-600 rounded-lg p-2 mb-4 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-colors duration-200"
-            placeholder="Edit your content here..."
-            rows={4}
-          />
-
-          <hr className="border-gray-300 dark:border-gray-600 my-4" />
-
-          {/* Comments Section */}
-          <div className="space-y-4">
-            <h2 className="text-xl font-semibold text-gray-900 dark:text-gray-100">
-              Comments
-            </h2>
-
-            {/* Comment Item */}
-            <div className="bg-gray-100 dark:bg-gray-700 p-3 rounded-lg">
-              <p className="text-gray-800 dark:text-gray-200">
-                <strong>User1:</strong> This is a comment example.
-              </p>
-            </div>
-            <div className="bg-gray-100 dark:bg-gray-700 p-3 rounded-lg">
-              <p className="text-gray-800 dark:text-gray-200">
-                <strong>User2:</strong> Another comment goes here.
-              </p>
-            </div>
-
-            {/* Input Comment */}
-            <div className="flex gap-2 mt-2">
-              <input
-                type="text"
-                placeholder="Write a comment..."
-                className="flex-1 border border-gray-300 dark:border-gray-600 rounded-lg p-2 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-colors duration-200"
-              />
-              <button className="px-4 py-2 bg-green-600 dark:bg-green-500 hover:bg-green-700 dark:hover:bg-green-600 text-white rounded-lg transition-colors duration-200">
-                Comment
-              </button>
-            </div>
-          </div>
+          )}
         </div>
+        <div className="divider"></div>
+
+        <BlogMenu />
       </div>
-      </>
-       )}
+
+      {role === "admin" && show ? (
+        <>
+          {/* Blog Post content */}
+          <BlogCreate />
+        </>
+      ) : (
+        <>
+          <dialog id="my_modal_3" className="modal" open={show}>
+            <div className="modal-box">
+              <form method="dialog">
+                {/* if there is a button in form, it will close the modal */}
+                <button
+                  onClick={() => setShow((prev) => !prev)}
+                  className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2"
+                >
+                  ✕
+                </button>
+              </form>
+              <h3 className="font-bold text-center text-5xl">Alert</h3>
+              <div className="divider"></div>
+              {authUser ? (
+                <img src="https://preview.redd.it/can-someone-photoshop-my-face-onto-this-meme-but-keep-the-v0-1kg7g9ub12fa1.jpg?width=640&crop=smart&auto=webp&s=796dd25871385c9f6ca4129504ae396e8b9a288e" />
+              ) : (
+                ""
+              )}
+
+              <p className="py-4 text-center font-bold text-error">
+                {authUser
+                  ? "You don’t have permission to create a blog"
+                  : "Please log in before creating blog."}
+              </p>
+            </div>
+          </dialog>
+        </>
+      )}
     </div>
   );
 };

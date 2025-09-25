@@ -4,12 +4,12 @@ const roleSchema = new mongoose.Schema(
     {
         email:{
             type: String,
-            require: true,
+            required: true,
             unique: true,
         },
         role:{
             type: String,
-            require: true,
+            required: true,
         }
     },{timestamps: true}
 );

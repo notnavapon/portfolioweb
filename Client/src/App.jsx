@@ -12,6 +12,7 @@ import { userAuthStore } from "./store/userAuthStore";
 import Chatpage from "./pages/Chatpage";
 import ResetPasswordpage from "./pages/ResetPasswordpage";
 import BlogPage from "./pages/Blogpage";
+import BlogContent from "./components/Blog/BlogContent";
 
 
 import {Loader} from "lucide-react";
@@ -49,10 +50,12 @@ const App = () => {
         <Route path="/chat" element={authUser ? <Chatpage/> : <Navigate to="/login"/>} />
         <Route path="/signup" element={!authUser ? <SignupPage/> : <Navigate to="/"/>}/>
         <Route path="/login" element={!authUser ? <LoginPage/> : <Navigate to="/"/>}/>
-        <Route path="/blog" element={authUser ? <BlogPage/> : <Navigate to="/"/>}/>
+        <Route path="/blog" element={<BlogPage/>}/>
         <Route path="/resetpassword" element={!authUser ? <ResetPasswordpage/> : <Navigate to="/"/>}/>
         <Route path="/settings" element={<SettingsPage/> }/>
         <Route path="/profile" element={authUser ? <ProfilePage/> : <Navigate to="/login"/>}/>
+        <Route path="/blog/:id" element={<BlogContent/>}/>
+
       </Routes>
       </div>
       <Footer/>

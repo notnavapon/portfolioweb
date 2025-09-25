@@ -1,10 +1,11 @@
-import Role from "../models/permissionModel.js";
+import Role from "../models/roleModel.js";
 
 
 export const getRoleOfUser = async(req , res) =>{
     try{
-        const role = await Role.find()
-        res.status(200).json(role)
+        const { email } = req.query;
+        const user = await Role.findOne({ email: email })
+        res.status(200).json(user.role)
     } catch (error) {
         res.status(500).json({message: error.message})
     }

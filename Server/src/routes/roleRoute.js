@@ -6,7 +6,7 @@ import { getRoleOfUser, setRoleOfUser, changeRoleOfUser } from "../controllers/r
 const router = express.Router();
 
 
-router.get('/:id', protectRoute, getRoleOfUser)
+router.get('/', protectRoute, getRoleOfUser)
 router.post('/',protectRoute, setRoleOfUser)
 router.put('/:id',protectRoute, changeRoleOfUser)
 
