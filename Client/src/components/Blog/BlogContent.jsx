@@ -56,7 +56,7 @@ const BlogContent = () => {
           </div>
           <Link
             to="/blog"
-            className="px-5 py-2 bg-blue-600 text-white font-semibold rounded-full hover:bg-blue-700 transition flex items-center gap-2"
+            className="px-2 py-1 bg-blue-600 text-white font-semibold rounded-full hover:bg-blue-700 transition flex items-center gap-2"
           >
             ← Back
           </Link>
