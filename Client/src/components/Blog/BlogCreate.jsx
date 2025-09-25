@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import MDEditor from "@uiw/react-md-editor";
 import { useBlogStore } from "../../store/useBlogStore";
 import { userAuthStore } from "../../store/userAuthStore";
@@ -11,8 +11,8 @@ const BlogCreate = () => {
     setTitle,
     setPreview,
     setContent,
-    reset,
     createBlog,
+    reset
   } = useBlogStore();
 
   const { authUser } = userAuthStore();
@@ -47,6 +47,10 @@ const BlogCreate = () => {
       console.error("Failed to send message:", error);
     }
   };
+
+  useEffect(()=>{
+    reset()
+  },[])
   return (
     <>
       {/* Mockup */}

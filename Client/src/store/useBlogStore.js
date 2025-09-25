@@ -11,7 +11,7 @@ export const useBlogStore = create((set) => ({
   setTitle: (title) => set({ title }),
   setPreview: (preview) => set({ preview }),
   setContent: (content) => set({ content }),
-  reset: () => set({ title: "", content: "" }),
+  reset: () => set({ title: "", preview: "", content: "" }),
 
   getBlogs: async() =>{
     try {
@@ -36,6 +36,22 @@ export const useBlogStore = create((set) => ({
       set({blog: res.data})
     } catch (error) {
       console.error("Error in selectBlog:", error);
+    }
+  },
+  editBlog: async(id, data) =>{
+    try {
+      console.log(id,data)
+      const res = await axiosInstance.put("/blog/edit/"+id, data);
+    } catch (error) {
+      console.error("Error in editBlog:", error);
+    }
+  },
+  deleteBlog: async(id) =>{
+    try {
+      const res = await axiosInstance.delete("/blog/delete/"+id);
+      getBlogs()
+    } catch (error) {
+      console.error("Error in deleteBlog:", error);
     }
   }
 

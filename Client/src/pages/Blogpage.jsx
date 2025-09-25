@@ -14,9 +14,11 @@ const Blogpage = () => {
   const [show, setShow] = useState(false);
   const { role, getRole } = useRoleStore();
 
+
   useEffect(() => {
     const checkRole = async () => {
       await getRole(authUser?.email);
+
     };
 
     checkRole();
@@ -24,7 +26,7 @@ const Blogpage = () => {
   }, [show]);
 
   return (
-    <div className="flex-1 pt-20 py-8">
+    <div className="flex-1 pt-20 py-8  min-h-screen">
       <div className="max-w-4xl mx-auto pt-20 px-6">
         <div className="flex items-center justify-between mb-8">
           <h1 className="text-4xl font-bold">📚 My Blogs</h1>
@@ -39,7 +41,6 @@ const Blogpage = () => {
           )}
         </div>
         <div className="divider"></div>
-
         <BlogMenu />
       </div>
 
