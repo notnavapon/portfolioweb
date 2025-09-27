@@ -29,10 +29,11 @@ const BlogContent = () => {
   const { authUser } = userAuthStore();
   const { email } = authUser;
 
+  const [checkUser , setCheckUser] = useState(false);
+
   useEffect(() => {
     const fetchPic = async () => {
       await selectBlog(id);
-
       if (!blog.email) return;
 
       const userPic = await checkUserPic({ email: blog.email });
@@ -41,13 +42,14 @@ const BlogContent = () => {
 
       if (email === blog.email)
         return (
+          setCheckUser(true),
           setTitle(blog.title),
           setPreview(blog.preview),
           setContent(blog.content)
         );
     };
     fetchPic();
-  }, [blog]);
+  }, [blog.title]);
 
   const handleChange = (event) => {
     if (event?.target) {
@@ -67,6 +69,8 @@ const BlogContent = () => {
         preview: preview.trim(),
         content: content.trim(),
       });
+
+      
 
       // Clear form
     } catch (error) {
@@ -95,8 +99,8 @@ const BlogContent = () => {
     <div className="flex-1 py-8">
       <div className="max-w-3xl mx-auto mt-10 p-8  py-8 rounded-2xl shadow-2xl bg-base-200">
         {/* edit  */}
-        {email === blog.email && <button className="btn btn-error" onClick={() => setShow((prev) => !prev)}>{show ? "Close Editor": "Open Editor"}</button>}
-        {email === blog.email && show ? (
+        {checkUser && <button className="btn btn-error" onClick={() => setShow((prev) => !prev)}>{show ? "Close Editor": "Open Editor"}</button>}
+        {checkUser && show ? (
           <div className="max-w-3xl mx-auto p-6 mt-10 bg-white dark:bg-gray-800 shadow-md rounded-lg transition-colors duration-300">
             <h1 className="text-3xl font-semibold mb-6 text-center text-gray-900 dark:text-gray-100">
               Edit Blog
