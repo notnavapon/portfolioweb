@@ -27,7 +27,6 @@ const BlogContent = () => {
   const [pic, setPic] = useState("");
 
   const { authUser } = userAuthStore();
-  const { email } = authUser;
 
   const [checkUser , setCheckUser] = useState(false);
 
@@ -40,7 +39,7 @@ const BlogContent = () => {
       console.log("userPic: ", userPic);
       setPic(userPic);
 
-      if (email === blog.email)
+      if (authUser?.email === blog.email)
         return (
           setCheckUser(true),
           setTitle(blog.title),
@@ -49,7 +48,7 @@ const BlogContent = () => {
         );
     };
     fetchPic();
-  }, [blog.title]);
+  }, [blog.title, authUser]);
 
   const handleChange = (event) => {
     if (event?.target) {
@@ -64,7 +63,7 @@ const BlogContent = () => {
   const handleSubmit = async (e) => {
     try {
       await editBlog(id, {
-        email: email,
+        email: authUser?.email,
         title: title.trim(),
         preview: preview.trim(),
         content: content.trim(),
